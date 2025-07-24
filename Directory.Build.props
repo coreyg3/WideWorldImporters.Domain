@@ -1,0 +1,46 @@
+<Project>
+  
+  <!-- Centralized Versioning Configuration -->
+  <PropertyGroup>
+    <!-- Central Version Management -->
+    <MajorVersion>1</MajorVersion>
+    <MinorVersion>0</MinorVersion>
+    <PatchVersion>0</PatchVersion>
+    
+    <!-- Computed Versions -->
+    <VersionPrefix>$(MajorVersion).$(MinorVersion).$(PatchVersion)</VersionPrefix>
+    
+    <!-- Pre-release Configuration -->
+    <PreReleaseLabel Condition="'$(PreReleaseLabel)' == ''"></PreReleaseLabel>
+    <VersionSuffix Condition="'$(PreReleaseLabel)' != ''">$(PreReleaseLabel)</VersionSuffix>
+    
+    <!-- Build Metadata (for CI/CD) -->
+    <BuildMetadata Condition="'$(BUILD_BUILDNUMBER)' != ''">+$(BUILD_BUILDNUMBER)</BuildMetadata>
+    <VersionSuffix Condition="'$(VersionSuffix)' != '' AND '$(BuildMetadata)' != ''">$(VersionSuffix)$(BuildMetadata)</VersionSuffix>
+  </PropertyGroup>
+
+  <!-- Common Package Properties -->
+  <PropertyGroup>
+    <Company>Your Company Name</Company>
+    <Product>Wide World Importers</Product>
+    <Copyright>Copyright © $(Company) $([System.DateTime]::Now.Year)</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/yourusername/WideWorldImporters.Domain</RepositoryUrl>
+    
+    <!-- Quality Settings -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU1605</WarningsNotAsErrors>
+    <EnablePackageValidation>true</EnablePackageValidation>
+  </PropertyGroup>
+
+  <!-- Conditional Configuration for Different Environments -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <VersionSuffix Condition="'$(VersionSuffix)' == ''">dev</VersionSuffix>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <!-- Production builds get clean versions -->
+  </PropertyGroup>
+
+</Project> 
