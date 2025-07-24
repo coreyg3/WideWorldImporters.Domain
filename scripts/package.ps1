@@ -89,7 +89,7 @@ function Invoke-PackCommand {
 switch ($Strategy) {
     "Manual" {
         $props = @{
-            "VersionPrefix" = "1.0.0"
+            "VersionPrefix" = "1.0.1"
         }
         
         if ($PreRelease) {
