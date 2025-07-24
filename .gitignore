@@ -182,3 +182,8 @@ coverage*.info
 # Python virtual environments
 .venv/
 venv/ 
+
+# NuGet packages - build artifacts should not be committed
+*.nupkg
+*.snupkg
+packages/
